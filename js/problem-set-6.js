@@ -11,7 +11,9 @@
  */
 
 function sayHello() {
-
+  var ctx = document.getElementById('canvas1').getContext('2d');
+    ctx.font = '48px sans-serif';
+    ctx.strokeText('Hello, World!', 10, 50);
 }
 
 /*
@@ -39,6 +41,29 @@ function sayHello() {
 
 function drawRectangle() {
 
+  height = Number(prompt('Height:'))
+  width = Number(prompt('Width:'))
+  x = Number(prompt('X:'))
+  y = Number(prompt('Y:'))
+
+  if (height < 1 || !Number.isInteger(height)){
+    alert("Your height is too small.")
+  }
+  if (width < 1 || !Number.isInteger(width)){
+    alert("Your width is too small.")
+  }
+  if (x < 5 || !Number.isInteger(x)){
+    alert("Your x-coordinate is too small.")
+  }
+  if (y < 5 || !Number.isInteger(y)){
+    alert("Your y-coordinate is too small.")
+  }
+  
+/*still need to add rectangle can not first
+*/
+
+  var ctx = document.getElementById('canvas2').getContext('2d');
+    ctx.strokeRect(x, y, width, height);
 }
 
 /*
