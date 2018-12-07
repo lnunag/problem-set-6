@@ -58,10 +58,9 @@ function drawRectangle() {
   if (y < 5 || !Number.isInteger(y)){
     alert("Your y-coordinate is too small.")
   }
-  
-/*still need to add rectangle can not first
-*/
-
+  if (length > 500 || width > 1000 || x > 1000 || y > 500 || !Number.isInteger(y)){
+    alert("Your rectangle will not fit on the canvas.")
+  }
   var ctx = document.getElementById('canvas2').getContext('2d');
     ctx.strokeRect(x, y, width, height);
 }
@@ -92,7 +91,45 @@ function drawRectangle() {
  */
 
 function drawColoredRectangle() {
+  color = prompt("Color:");
 
+  if (color == "black"){
+    var ctx = document.getElementById('canvas3').getContext('2d');
+    ctx.fillStyle = 'black';
+      ctx.fillRect(10, 10, 100, 50);
+  }
+  if (color == "blue"){
+    var ctx = document.getElementById('canvas3').getContext('2d');
+    ctx.fillStyle = 'blue';
+      ctx.fillRect(10, 10, 100, 50);
+  }
+  if (color == "green"){
+    var ctx = document.getElementById('canvas3').getContext('2d');
+    ctx.fillStyle = 'green';
+      ctx.fillRect(10, 10, 100, 50);
+  }
+  if (color == "orange"){
+    var ctx = document.getElementById('canvas3').getContext('2d');
+    ctx.fillStyle = 'orange';
+      ctx.fillRect(10, 10, 100, 50);
+  }
+  if (color == "purple"){
+    var ctx = document.getElementById('canvas3').getContext('2d');
+    ctx.fillStyle = 'purple';
+      ctx.fillRect(10, 10, 100, 50);
+  }
+  if (color == "red"){
+    var ctx = document.getElementById('canvas3').getContext('2d');
+    ctx.fillStyle = 'red';
+      ctx.fillRect(10, 10, 100, 50);
+  }
+  if (color == "yellow"){
+    var ctx = document.getElementById('canvas3').getContext('2d');
+    ctx.fillStyle = 'yellow';
+      ctx.fillRect(10, 10, 100, 50);
+  }
+  if (color !="black" && color !="blue" && color !="green" && color !="orange" && color !="purple" && color !="red" && color !="yellow")
+    alert(color + "is not a supported color.")
 }
 
 /*
