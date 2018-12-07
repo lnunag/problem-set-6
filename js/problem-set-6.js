@@ -162,6 +162,12 @@ function drawColoredRectangle() {
  */
 
 function drawTriangle() {
+  var ctx = document.getElementById('canvas4').getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(75,75);
+    ctx.lineTo(10,75);
+    ctx.lineTo(10,25);
+    ctx.fill();
 
 }
 
@@ -174,7 +180,11 @@ function drawTriangle() {
  * radius of the mouth should be 70% of that of the head. A nose is not
  * required, and the position of the eyes and mouth are up to you (provided)
  * they are on the face.
- *
+ *leg1 = Number(prompt('Side 1:'))
+ leg2 = Number(prompt('Side 2:'))
+ hypotenuse = Number(prompt('Side 3:'))
+
+ var ctx = document.getElementById('canvas4').getContext('2d');
  * You'll need to use the appropriate Canvas API methods to do this. If you're
  * unsure what your code should do, click the "Example" button to see. When you
  * click the "Smile" button, your output should match that of the example.
@@ -185,7 +195,16 @@ function drawTriangle() {
  */
 
 function drawSmileyFace() {
-
+  var ctx = document.getElementById('canvas5').getContext('2d');
+    ctx.beginPath();
+      ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
+      ctx.moveTo(110, 75);
+      ctx.arc(75, 75, 35, 0, Math.PI, false);  // Mouth (clockwise)
+      ctx.moveTo(65, 65);
+      ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // Left eye
+      ctx.moveTo(95, 65);
+      ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
+      ctx.stroke();
 }
 
 /*
@@ -207,7 +226,22 @@ function drawSmileyFace() {
  */
 
 function drawStar() {
+  var ctx = document.getElementById('canvas6').getContext('2d')
+  var alpha = (2 * Math.PI) / 10;
+  var radius = 12;
+  var starXY = [100,100]
 
+ctx.beginPath();
+
+for(var i = 11; i != 0; i--)
+{
+    var r = radius*(i % 2 + 1)/2;
+    var omega = alpha * i;
+    ctx.lineTo((r * Math.sin(omega)) + starXY[0], (r * Math.cos(omega)) + starXY[1]);
+}
+ctx.closePath();
+ctx.fillStyle = "#000";
+ctx.fill();
 }
 
 /*
