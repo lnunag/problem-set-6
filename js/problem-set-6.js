@@ -129,7 +129,7 @@ function drawColoredRectangle() {
       ctx.fillRect(10, 10, 100, 50);
   }
   if (color !="black" && color !="blue" && color !="green" && color !="orange" && color !="purple" && color !="red" && color !="yellow")
-    alert(color + "is not a supported color.")
+    alert(color + " is not a supported color.")
 }
 
 /*
