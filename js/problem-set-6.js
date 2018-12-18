@@ -162,14 +162,41 @@ function drawColoredRectangle() {
  */
 
 function drawTriangle() {
-  var ctx = document.getElementById('canvas4').getContext('2d');
-    ctx.beginPath();
-    ctx.moveTo(75,75);
-    ctx.lineTo(10,75);
-    ctx.lineTo(10,25);
-    ctx.fill();
+  let x=10;
+  let y=10;
+  let a;
+  let b;
+  let c;
+  let canvas = document.getElementById("canvas4");
+  let context = canvas.getContext("2d");
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  while(true){
+	a=Number(prompt("Side 1:"));
+	b=Number(prompt("Side 2:"));
+	c=Number(prompt("Side 3:"));
+	if(((a**2) + (b**2) == (c**2)) && a>0 && b>0 && c>0 && canvas.width-x-a>=0 && canvas.height-y-b>=0){
+		break;
+	}else{
+		alert("This is not a valid right triangle.")
+	}
+  }
 
+ context.beginPath();
+ context.moveTo(x,y);
+ context.lineTo(x,y+a);
+ context.stroke();
+
+ context.beginPath();
+ context.moveTo(x,y+a);
+ context.lineTo(x+b,y+a);
+ context.stroke();
+
+ context.beginPath();
+ context.moveTo(x,y);
+ context.lineTo(x+b,y+a);
+ context.stroke();
 }
+
 
 /*
  * Smile. 7 points.
@@ -180,11 +207,7 @@ function drawTriangle() {
  * radius of the mouth should be 70% of that of the head. A nose is not
  * required, and the position of the eyes and mouth are up to you (provided)
  * they are on the face.
- *leg1 = Number(prompt('Side 1:'))
- leg2 = Number(prompt('Side 2:'))
- hypotenuse = Number(prompt('Side 3:'))
-
- var ctx = document.getElementById('canvas4').getContext('2d');
+ *
  * You'll need to use the appropriate Canvas API methods to do this. If you're
  * unsure what your code should do, click the "Example" button to see. When you
  * click the "Smile" button, your output should match that of the example.
@@ -195,17 +218,38 @@ function drawTriangle() {
  */
 
 function drawSmileyFace() {
-  var ctx = document.getElementById('canvas5').getContext('2d');
-    ctx.beginPath();
-      ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
-      ctx.moveTo(110, 75);
-      ctx.arc(75, 75, 35, 0, Math.PI, false);  // Mouth (clockwise)
-      ctx.moveTo(65, 65);
-      ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // Left eye
-      ctx.moveTo(95, 65);
-      ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
-      ctx.stroke();
-}
+  let radius;
+  let canvas = document.getElementById('canvas5');
+  let ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+	while(true){
+		radius=Number(prompt("Radius:"));
+		if(radius>=1 && radius<=canvas.width && Number.isInteger(radius)){
+			break;
+		}
+	}
+  let x=canvas.width;
+  let y=canvas.height;
+  let eye=radius*.1
+  let mouth=radius*.7
+  ctx.beginPath();
+  ctx.arc(x/2, y/2, radius, 0, Math.PI*2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(x/2 - radius/3, y/2-radius/4, eye,0, Math.PI*2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(x/2+radius/3, y/2-radius/4, eye,0, Math.PI*2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(x/2, y/2, mouth,0, Math.PI);
+  ctx.stroke();
+  }
+
+
 
 /*
  * Star. 9 points.
@@ -226,23 +270,41 @@ function drawSmileyFace() {
  */
 
 function drawStar() {
-  var ctx = document.getElementById('canvas6').getContext('2d')
-  var alpha = (2 * Math.PI) / 10;
-  var radius = 12;
-  var starXY = [100,100]
+    let canvas = document.getElementById('canvas6');
+    let ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-ctx.beginPath();
+      let outer=Number(prompt("Outer radius:"));
+      let inner=Number(prompt("Inner radius:"));
+      if (outer>=inner && canvas.width>=outer+125 && canvas.height>=outer+125 && inner>=1 && outer>=1){
+        let points=5;
+        let outerx=[];
+        let outery=[];
+        let innerx=[];
+        let innery=[];
+        for(let i=0;i<points;i++){
+          outerx.push(Math.cos((Math.PI*2*i)/points-(Math.PI/2))*outer+125);
+          outery.push(Math.sin((Math.PI*2*i)/points-(Math.PI/2))*outer+125);
+          innerx.push(Math.cos(((Math.PI*2*i)/points)-(Math.PI/2)+(Math.PI/points))*inner+125);
+          innery.push(Math.sin(((Math.PI*2*i)/points)-(Math.PI/2)+(Math.PI/points))*inner+125);
+        }
+        ctx.beginPath();
+        ctx.moveTo(outerx[0], outery[0]);
+        for(let j=0;j<outerx.length;j++){
+          ctx.lineTo(innerx[j], innery[j]);
+          ctx.lineTo(outerx[j+1], outery[j+1]);
+        }
+        ctx.lineTo(outerx[0], outery[0]);
+        ctx.stroke();
+        ctx.closePath();
+    }
+    else{
+        alert('Your outer radius must be larger than your inner radius.');
+      }
+  }
 
-for(var i = 11; i != 0; i--)
-{
-    var r = radius*(i % 2 + 1)/2;
-    var omega = alpha * i;
-    ctx.lineTo((r * Math.sin(omega)) + starXY[0], (r * Math.cos(omega)) + starXY[1]);
-}
-ctx.closePath();
-ctx.fillStyle = "#000";
-ctx.fill();
-}
+
+
 
 /*
  * Stop Sign. 7 points.
@@ -260,8 +322,39 @@ ctx.fill();
  */
 
 function drawStopSign() {
+  let canvas = document.getElementById('canvas7');
+  let ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let sidelength=80;
+  let center=[10+(sidelength)/2+sidelength/Math.sqrt(2), 10+(sidelength/2)+(sidelength/Math.sqrt(2))]
+  console.log(center)
+  let points=8;
+  let pointx=[];
+  let pointy=[];
 
+  for(let i=0;i<points;i++){
+    pointx.push(Math.cos(((Math.PI*2*i)/points)-Math.PI/8)*100+center[0]);
+    pointy.push(Math.sin(((Math.PI*2*i)/points)-Math.PI/8)*100+center[1]);
+  }
+  ctx.beginPath();
+  ctx.moveTo([pointx][0], pointy[0]);
+  for(let j=0;j<pointx.length;j++){
+    ctx.lineTo(pointx[j], pointy[j]);
+  }
+  ctx.lineTo(pointx[0], pointy[0]);
+  ctx.stroke();
+
+  ctx.fillStyle="red";
+  ctx.fill();
+  ctx.closePath();
+  ctx.beginPath();
+  ctx.textAlign="center";
+  ctx.font="56px Arial";
+  ctx.fillStyle="white";
+  ctx.fillText("STOP", center[0], center[1]+15);
+  ctx.closePath()
 }
+
 
 /*
  * Pyramid. 7 points.
@@ -282,9 +375,26 @@ function drawStopSign() {
  */
 
 function drawPyramid() {
+  let canvas = document.getElementById('canvas8');
+  let ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let sideLength=Number(prompt("Side Length:"));
+  let x=10;
+  let y=canvas.height-10;
+  let i=0;
+  lineNumber=1;
+  while(i<5){
+    for(let j=0+lineNumber;j<=5;j++){
+      ctx.strokeRect(x,y-sideLength,sideLength,sideLength);
+      x+=sideLength;
+    }
+    x=10+(sideLength/2)*lineNumber;
+    y-=sideLength;
+    lineNumber++;
+    i++;
+  }
 
 }
-
 /*
  * House. 7 points.
  *
@@ -315,5 +425,40 @@ function drawPyramid() {
  */
 
 function drawHouse() {
+  let canvas = document.getElementById('canvas9');
+  let ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  while(true){
+  house=prompt("House Color:");
+  door=prompt("Door Color:");
+  if((door=="brown" || door=="blue" || door=="green" || door=="orange" || door=="purple" || door=="red" || door=="yellow")
+  && (house=="brown" || house=="blue" || house=="green" || house=="orange" || house=="purple" || house=="red" || house=="yellow")) {
+    break;
+  }
+  else{
+      alert("One of your colors is not supported.")
+  }
+}
+let x=150;
+let lengthHouse=576;
+let heightHouse=400;
+let y=canvas.height-heightHouse-10;
+ctx.beginPath();
+ctx.fillStyle=house;
+ctx.fillRect(x,y,lengthHouse,heightHouse);
+ctx.fillStyle=door;
+ctx.fillRect(x+(lengthHouse/2)-30,y+300,60,100);
+ctx.fillStyle="gray";
+ctx.moveTo(x,y);
+ctx.lineTo(x+286,150);
+ctx.lineTo(x+lengthHouse,y);
+ctx.lineTo(x,y);
+ctx.fill();
+ctx.fillStyle="#ADD8E6";
+ctx.fillRect(300,y+100, 50, 50);
+ctx.fillRect(526,y+100, 50, 50);
+ctx.fillRect(300,y+200, 50, 50);
+ctx.fillRect(526,y+200, 50, 50);
+ctx.closePath();
 }
